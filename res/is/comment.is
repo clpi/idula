@@ -1,0 +1,84 @@
+~~! This is a top level doc comment block
+~~! It has two tildes followed by an excl point to demarcate the start
+~~! and to show its importance and relevance to the current document
+~~! maybe I'll leave in the tildes on each line, until the closing one!
+~~! Instead of dashes, we have periods... all subject to change :P
+
+
+..! This is a top-level doc comment block
+  ! As of 2022/01/16, this is how things look
+  ! The terminator for anything depends on the opening style of the op 
+  ! str, not the unique part (in this case, the opening is ".." and the
+  ! unique part is "!" -- ending blocks always involves a semicolon in 
+..! some capacity, at least when they're special)
+
+
+ -! This is a doc line comment (terminator is \n)
+ -! Note that - in using block commments, if the block closer string is the 
+ -! first string encountered on a line, then it will still leave that line 
+ -! commented, like a line comment, as you see above. If the block closer 
+ -! is placed anywhere after col:1 (the first column) then the exact closing
+ -! location is respected and everything succeeding it will be uncommented.
+
+--! This is a doc block comment. This is a test of the 
+  ! Idleset/Idlelang parser's abilities, and syntax formatting.
+  ! This file is an introduction to the syntax.
+--! These are both line comments, and should get "eaten away"
+
+
+-- Types are declared (if desired) by using prefixes and suffixes to the LHS
+-- Primitive higher-level types are int, uint, bool, str, byte, bytes, etc.
+-- Types are cast up and down depending on stated precision levels.
+-- For example, the type "num" is a parent that encapsulates all of the int, uint, and float
+-- types. But int itself encapsulates the int32, int64, uint16, etc. all the way down the line
+
+--: (This is a block comment, btw) - The goal of this language is to develop a very strong
+  : foundational type, trait, logic, metadata, relation, and hierarchy-tracking compiler/VM
+  : (parallel to the similar goals for idledown and idlespec) to capture something that I really
+  : liked about first getting into Rust. It felt like an emergent playground, where the trait
+  : system was so powerful that I could find new interesting and even productive ways to
+  : use it to either overcome challenging problems, or in its own right, enjoy a mind-bending
+  : and expanding experience. I would like to take that sort of emergent and highly experimental
+  :  sort of programming foundation and put it in a new language which doesn't have to be too
+  : complicated, but can exponentially enable productive, engaging, and fun experimentation
+  : and emergent breakthroughs (and downtime). Ambitious I know -- I didn't even study CS 
+--: in college! -- but I've always loved studying Plangs.
+
+ -# meta line comments
+ -@ dev environment line comments
+
+--# meta block comments and best practices for formatting them (and others)
+  # these comment blocks contain data that is considered important to auxillary 
+  # pieces of the idlesys ecosystem (auxiliary... depending on what reading this for --
+  # if you just want to check out a plang, then yeah, its auxiliary)
+  # meta blocks can contain instructions which associate and update data on either
+  # end of a code-env/work-env environment symbiosis. important past metadata or 
+  # tagged snippets might be exposed to new problems and new solutions are inevitably
+  # found -- either automatically or through one human's one ingenuity.
+  # They can contain structured, syntax-perfect data entries associated with pieces
+  # of your software raw literal code or output, or they can contain a jumble of
+  # descriptions, spurious connections, and instructions/commands, the goal is that
+  # no matter what, code, and coding, without any history, feels like a slippery
+  # slope to a too early future. Working in the proper context, enabling reflection,
+  # reducing boilerplate, looking horizontally throughout time, even if enabled only
+--; a slight bit more, is many times better than no such environment at all.
+
+--@ dev environment block comment -- for communicating with the interpreter, vm, parser,
+  @ compiler, package manager, configuration, etc. With blocks such as these, you can
+  @ take inline C or C++ code and make it work seamlessly with an .is codebase, compile
+  @ projects from several different projects of different programming languages, concurrently,
+  @ and have them all talk together without any problems. Also, this (not necessarily the
+  @ block form) is the primary way to speak to your idula compiler so it can be the best
+  @ it can be. From inlining loops, metaprogramming, optimization, and other such nifty
+  @ tricks, this is how you'll do it. Not afraid of bending the rules a bit if it can
+  @ afford a developer more ways to build on emergent breakthroughs in what they thought
+  @ they "could" and "couldnt" do with their code.
+--; You have the ability to make the rules. And the language too!
+
+ 
+
+-- -:@compiler <compile-time instructions to send to compiler>
+
+
+let person :str = "Chris P"
+let person_age :num = 24

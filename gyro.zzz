@@ -1,0 +1,11 @@
+# vim: set ft=yaml:
+pkgs:
+  idula:
+    version: 0.0.0
+    description: "a v2 at building a few languages in zig"
+    source_url: "https://github.com/clpi/idula"
+
+    root: src/main.zig
+    files:
+      README.md
+      LICENSE

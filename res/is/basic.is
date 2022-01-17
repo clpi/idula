@@ -1,0 +1,10 @@
+-- This is a basic demo of syntax for idula
+-- NOTE: scope: here the scope is "global"
+
+@block:{
+    -- This block has been labeled "block", and that is now our scope (depth 1, parent "global")
+
+    let g:ident:str = "this is a global string"
+
+}
+

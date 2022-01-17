@@ -1,0 +1,8 @@
+ ~! File: /res/goals.is (to left are doc top level lines symbols)
+ ~!
+ ~! * a basic, functional, type system
+ ~! * a basic, functional, trait implementation and solving system
+ ~! * a slightly advanced logic solving system
+ ~! * a project manager that is functional, and the inklings of a package manager repo/setup
+ ~! * code generation
+ ~! * a basic LSP server
