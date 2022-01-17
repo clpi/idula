@@ -1,0 +1,180 @@
+ -! Welcome to the src/lib.is file.
+ -! Everything worked! Horray!
+
+ mod std = [std]
+ mod core = [core]
+ mod lib = [lib]
+ 
+ let pub invar lang  p"./res/is/basic.is"
+ xd25519 = pub using :xd25519
+ User = pub using [..user:User]
+ mod util = pub using [util::]
+ mod rand = using rand
+ let Actor = using local:actor:Actor                           -- the "local" keyword refers to the current module
+ pub local << all:[actor:Actor:(this, messenger))]             -- while our module is always necessary local, our "scope" is always changing levels
+ pub local << :all[local:model:Model:(executable, queryable)]  -- local prefixing and symbol declaration makes it visible to only the module it is declared in
+ pub using       [std::core, std::io]                                
+
++ User:g
+    :from idea[Actor:messenger] derive
+    :from concept[Model:executable] derive
+        : maybe:with[some:Actor:message] -> msg where           -- Quickly alias some theoretical "some Actor:message" type type to ident "msg"
+	 some msg must      
+	  if[ msg.exists[]? -> some:txt {
+	      if: text:len < 100 -> some:txt -> end ->>       -- dont want messages with < 100 chars
+	      ef: text:len > 100 -> none
+
+	  }
+	      
+	  
+	 
+	 
+     with Network where             --- specifies this initialization is in the case of 
+	 Network must
+	   have: f:population:u32,       --- have a field named population which takes u32
+	   have: f:population > 100       --- have that field be above 100
+	   have: f.population < 200
+	   impl: trait:Actor.Runtime:trait
+
+	   c [m:broadcast[+this, +msg]
+	     [j
+	     
+	     ]
+
+
+
+ with Network must {
+     where Network has f:population and 
+	 f:population
+  }
+
+ has :data{ 
+     +id             usize?
+     +g:peer_id      PeerId?
+     +api_key        maybe[ApiKey[type:Network]]
+     +name           maybe[str]
+     +email          str
+     +pw_hash        str
+     +g:public_key   bytes?
+     +priv_key       bytes?
+     +joined         std.Time
+ } 
+ impls {
+     - type:[this] -> Actor:trait                                      -- (automatically implemented by trait generic implsd for parent type abstraction)
+     - type:[this] -> Channel:trait                                                                      -- (same as before)  ^-- can be overwritten
+     - this        -> [RetryConn:qual, PreferSafety:qual, ManualAlloc:qual]                              
+
+     - this.(id, api_key, keypair) -> Deref, Serialize
+     - [this]      -> Channel:connection:list[Proc] -> filter_procs:{
+	  for p in  {
+
+	  }
+      }
+     -> if[ Proc:return == none ] else{ continue },
+     keypair field {
+	  fn generate_keypair(this, seed str) result str {     -- this new sym (keypair decl on the spot, figured out by compiler) is:
+	  ->                       
+	      +v:oldkeys <- this.[public_key~~private_key]
+
+	      -xd25519:gen_keypair[+seed] -try-await -> +v:keypair    -- private (no pub modifier before ident, so *local* by default)
+	      -this.public_key  <- keypair.1                       -- is mutable due to the v: prefix (could also be "var" preceding ident, or :v postfix)
+	      -this.private_key <- keypair.2                       -- indexing tuples, lists, etc. is just like field access
+	      -this.expiration  <- keypair.expiry      
+
+	  }
+
+	  fn checkApiKey[this:User] :result:maybe[ApiKey]      -- (that's Result<Option<ApiKey>> where ApiKey is a typefor you rustlings)
+	  {
+	      let invar +apikey << this.api_key
+	    + if [this:api_key]: some:akey >> end[ok:some:akey]
+	    + ef [this:peer_id]: (none)  >> nothing 
+	    + ef [this:peer_id]: (none) >> nothing 
+	      or else none >> out; 
+	      end
+	  }
+	      elseif[this.email]
+	      else:
+	      if[this :api_key]: gotkey:{
+		  (none)       -> exit:err[std:err.does_not_exist]
+		  (some:+akey) -> gotkey:{
+		      this:api_key << akey:cue :copy :as_str do
+		      akey ->> gotkey:akey
+		  }
+		  (none) ->
+		  (this :api_key]
+	      }
+	      else -> none; {
+		  err std.error.does_not_exist[+"api key"] ->>
+
+	      }
+	  
+
+
+	      
+
+	  }
+	 
+     }
+ }
+ --: Properties about this data structure that are necessary for auxiliary tasks, but not vis-a-vis their
+     theoretical foremost purpose designed for. Ex. allocators, configuration, behavior options,
+     counts, and the like.
+
+ --: Props can be set, reset for structs in their appropriate data specification block.
+    
+
+ props {
+      memory_address << 334201320304
+      max_threads << 1
+
+      print << this.max_threads
+      this.fields:len >> print
+
+      this.s
+      
+      
+ }
+ responds when {            
+      when 
+	  any:[self.id == none, self.api_key == none]   -> { self.id <- uuid:newv4[] }
+	  all:[:self.name == none] -> { self.name <- "" << rand.rng:fill alphanumeric[]()  }  -- functions can take two sets of parameters always --
+ }                                                                                           those explicitly set by the function creator, and modifier
+											     qualifiers and constraints etc. as much as you please
+											  -- [] blocks are always lists of some sort, where ops count
+												as valid list items
+ does {
+     proc to_var[this] var this {
+	  v:var_self 
+	      <- this cloned[+this] 
+     }
+
+     fn broadcast[this, msg :str] :result none {
+
+	 msg.uppercase[]
+     }
+
+ }
+
+
+ -- TIPS:
+
+  - Unique data blocks: There isn't just one way to access, assign, or operate your code. For example, the "<symbol>.[<f1>, <f2>]"
+    allows for multi-data access for data structures. similarly, method literals can be selected with the "<sym>:[<m1>, <m2>]" op
+
+  - Context is important. Differently prefixed blocks can provide much different rules for what you can expect to do within the blocks.
+    If you wish, normal brackets still do the same as in all languages, but there are several more possible avenues to go down now.
+
+  - Many blocks you're used to seeing with parens, you now see with [ and ]. This is mostly for visual clarity, and making the deeper
+    connection that all blocks where [ and ] replace ( and ) are really just lists. And, that's why metaprogramming comes naturally as well.
+
+  - There are several ways to do most given actions. For example:
+      - msg.uppercase()    - uppercase(msg)      
+
+  - Keys and string-based indexers declarations are designated by prefixing the identifier with a + before all other prefixes.
+      Similarly, types, values, and constraints which fulfill or modify the possible values are prefixed with a : before all others
+      So data is assigned in a literal fashion like so:
+
+      [+v:key -val[T param]] or fn format_term[+first -this.id; +second -this.name; +third -this.created]
+		  ( note that in function calls, adding the parameter name is optional )
+
+

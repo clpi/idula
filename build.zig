@@ -1,15 +1,30 @@
 const std = @import("std");
+const build = std.build;
+const builtin = std.builtin;
+const InstallArtifactStep = build.InstallArtifactStep;
+const Builder = std.build.Builder;
+const TranslateCStep = std.build.TranslateCStep;
+const Step = std.build.Step;
+const RunStep = std.build.RunStep;
+const InstallDirOpts = std.build.InstallDirectoryOptions;
+const InstallDirStep = std.build.InstallDirStep;
+const InstallDir = std.build.InstallDir;
+const LibExeObjStep = std.build.LibExeObjStep;
+const FileSource = std.build.FileSource;
+const FmtStep = std.build.FmtStep;
+const RunStep = std.build.RunStep;
+const Pkg = std.build.Pkg;
+const InstallFileStep = std.build.InstallFileStep;
+const GeneratedFile = std.build.GeneratedFile;
+const Target = std.build.Target;
+const Step = std.build.Step;
 
 pub fn build(b: *std.build.Builder) void {
-    // Standard target options allows the person running `zig build` to choose
-    // what target to build for. Here we do not override the defaults, which
-    // means any target is allowed, and the default is native. Other options
-    // for restricting supported target set are available.
+    b.exec(.{ "echo", "\x1b[32;mIDULA is installing...\x1b[0m" });
     const target = b.standardTargetOptions(.{});
 
-    // Standard release options allow the person running `zig build` to select
-    // between Debug, ReleaseSafe, ReleaseFast, and ReleaseSmall.
-    const mode = b.standardReleaseOptions();
+    const mode_opt = std.builtin.Mode.Debug;
+    const mode = b.setPreferredReleaseMode(mode_opt);
 
     const exe = b.addExecutable("il", "src/main.zig");
     exe.setTarget(target);

@@ -1,0 +1,32 @@
+[project]
+title = "New IDULA project"
+author = ""
+date = ""
+version = ""
+edition = "2022"
+
+# ---------------------------------------------#
+
+[lib]
+name = "library"
+path = "src/lib.is"
+
+
+[[bin]]
+name = "binary-name"
+path = "./bin/name"
+
+
+[[module]]
+name = "private module"
+public = false
+compile = false
+
+
+[deps]
+
+[dev-deps]
+
+[build-deps]
+
+[prod-deps]

@@ -1,0 +1,9 @@
+[package]
+name = "idula"
+version = "1.0.0"
+description = ""
+license = "ISC"
+
+[[module]]
+name = "entry"
+source = "entry.wasm"

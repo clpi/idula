@@ -1,0 +1,27 @@
+[project]
+title = "New IDULA project"
+author = ""
+date = ""
+version = ""
+idula-edition = "2022"
+
+# ---------------------------------------------#
+
+[lib]
+name = "library"
+path = "src/lib.is"
+
+
+[[bin]]
+name = "binary-name"
+path = "./bin/name"
+
+
+[[module]]
+name = "private module"
+public = false
+compile = false
+
+
+[deps]
+# example: idula = "*"

@@ -1,6 +1,16 @@
+const str = []const u8;
 const std = @import("std");
 const builtin = @import("builtin");
 const util = @import("util.zig");
+const init = @import("./cli/init.zig");
+const repl = @import("./cli/repl.zig");
+const compile = @import("./cli/compile.zig");
+const build = @import("./cli/build.zig");
+const run = @import("./cli/run.zig");
+const help = @import("./cli/help.zig");
+const process = std.process;
+const ChildProcess = std.ChildProcess;
+const Thread = std.Thread;
 const eq = util.eq;
 const readFile = util.readFile;
 const eql = std.mem.eql;
@@ -14,6 +24,7 @@ pub const Cmd = union(enum) {
     run: ?[]const u8,
     compile: ?[]const u8,
     init: ?[]const u8,
+    workspace: ?[]const u8,
     repl,
 
     pub fn exec(self: Cmd, a: Allocator, c2: ?[]const u8, args: []const []const u8) !void {
@@ -25,8 +36,24 @@ pub const Cmd = union(enum) {
             Cmd.help => |_| {
                 print_usage();
             },
-            Cmd.init => |_| {},
-            Cmd.run, Cmd.compile => |_| {
+            Cmd.init => |_| if (c2) |c| {
+                try init.init_project(c);
+            } else {
+                try init.init_project(null);
+            },
+            Cmd.workspace => |_| if (c2) |c| {
+                try init.init_workspace(c);
+            } else {
+                try init.init_workspace(null);
+            },
+            Cmd.run => |_| {
+                if (c2) |f| {
+                    const src = try readFile(a, f);
+                    const b = try std.fmt.allocPrint(a, "{s}\n", .{src});
+                    std.debug.print("{s}\n", .{b});
+                }
+            },
+            Cmd.compile => |_| {
                 if (c2) |f| {
                     const src = try readFile(a, f);
                     const b = try std.fmt.allocPrint(a, "{s}\n", .{src});
@@ -84,20 +111,5 @@ pub fn parse_args(a: Allocator, args: *std.process.ArgIterator) ![]const []const
     }
     const argm = as;
     return argm;
-}
-fn repl(allocator: Allocator) !void {
-    var hist = std.ArrayList([]const u8).init(allocator);
-    var buf: [512]u8 = undefined;
-    while (true) {
-        _ = try stdout.write(":idlang:> ");
-        const read = try stdin.read(&buf);
-        if (read == buf.len) {
-            _ = try stdout.write("Over 512 bytes");
-            continue;
-        }
-        const inp = buf[0..read];
-        _ = try stdout.write(inp);
-        try hist.append(inp);
-    }
 }
 pub fn print_usage() void {}

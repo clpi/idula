@@ -1,0 +1,63 @@
+[project]
+title = "New IDULA project"
+author = ""
+date = ""
+version = ""
+idula-edition = "2022"
+
+
+[lib]
+name = "library"
+path = "src/lib.is"
+
+[[bin]]
+name = "binary-name"
+path = "./bin/name"
+
+
+[[module]] 
+name = "DB Local Store"
+pattern = "src/storage/*.is"
+compile-if = { windows = true }
+
+[[module]]
+name = "private module"
+public = false
+compile = false
+
+[deps]
+# example: idula = "*"
+
+[dev]
+publish = false
+
+    [dev.profile]
+
+    [dev.deps]
+
+    [dev.compiler]
+    release-mode = "stable"
+
+
+[build]
+    [build.deps]
+
+    [build.profile]
+
+    [build.compiler]
+    release-mode = "stable"
+
+
+
+[prod]
+publish = true
+
+    [prod.compiler]
+    release-mode = "stable"
+
+    [prod.profile]
+
+    [prod.deps]
+
+# optional, for down the road
+[workspace]

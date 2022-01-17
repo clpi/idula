@@ -1,0 +1,12 @@
+**.env
+**.local.env
+**.dev.env
+**out
+**.idle/
+**Idle.lock
+**Spec.lock
+**node_modules
+**target
+**Cargo.lock
+**package.lock
+

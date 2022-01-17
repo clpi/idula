@@ -5,3 +5,5 @@
 **target
 **npm-modules
 **.prod.env
+
+wapm_packages

@@ -1,0 +1,75 @@
+invar fs = using from std.fs:      [open, write, read, mkdir, cd]
+invar io = using from std.debug:   [log, warn, err, print]
+
+using from std.build:   [Builder, Context, Arch, Compat, Profiles]
+local from std.builtin: [os, sys, process]
+
+local builder.Builder
+   + with          :all[std.os:build_info, std.builtin:Parallel, Debug]
+   + derives from: :std.build.abilities.builder_derives:tr;
+   + derives from: :std.os.env.build_settings:tr ;
+   + with:         :local.deps.build:[mod]:fetch >> this.deps;
+   + with maybe:   :config.local.file ? [none] >> this.local_config;
+while for as none my true false str int   if else then do new 
+has:while [ eq std.mode "build"] and [ eq std.mode:stage for:any["link", "install", "build"] ]
+for as 
+{
+   + steps :[std.build:step] = [Step.link, Step.compile, Step.install]
+   + dirs :path  = build_info.app_dirs[+"data", +"config", "+runtime", +"app"]
+   + package_metadata :PackageInfo has {
+	+ name :str = "starter package"
+	+ authors :[str] = [ "Just you" ]
+	+ repostiory :str = "<GIT REPOSITORY>"
+	+ version    :str = "0.1.0-alpha"
+	+ edition    :str = "2022-0"
+	+ license    :str = ""
+	+ webpage    :str = ""
+	..continue          -- if you want to edit your pkg metadata here
+    }                       -- just remove the continue directive
+}
+-- Defining stage 1 of the build process (Linking)
+do:if [ eq std.mode "build" ] and do:while [ eq std.mode.step "link" ]
+
+
+-- Defining stage 1 of the build process (compile)
+do:if [ eq std.mode "build" ] and do:while [ eq std.mode.step "compile"
+{
+
+}
+
+-- Previous declaration with modifier suffixed
+do:if [ eq std.mode "build" ] and do:while [ eq std.mode.step "install"
+    ->      do[std.editor.safety:build_override, std.mode.toggle[+"build"]]
+    ->      do[meta.dev.safety_checks_toggle, meta.dev.toggle]
+    ->      do[std.thread:safety_override, std.thread:max_thread_recount]
+    ->      
+
+   + os   [std.os:evar]  = 
+	do:[std.os.platform:(get_os, print)] eq 
+	    result[ok:[os]] -> (return:[os])) -> else continue;
+   + arch [env.cpu:arch] = -> wait:[this.os]? ->
+	-> (maybe.ok :os) -> 
+	-> (maybe.err :e) -> 
+	
+	do[std.os.platform:architecture] <- [do:return]
+   + env: [EnvVar]       = wait[this.arch]: -> do:[std.env:vars.0] -> exit
+   + lib: [std.fs:Path]  = wait: -> do:[std.fs:to_path, this.lib:path] -> exit
+
+}
+
+can {
+
+}
+
+does {
+
+}
+
+
+
+
+
+
+proc.unset_build[+set_prod :bool] result:
+    
+do[std.editor.safety:build_override, std.mode.toggle[+"build"]]
