@@ -1,16 +1,16 @@
 PROJECT_NAME=idleset
-LLVM_SRC_ROOT=$(cwd)/out/llvm/src
-LLVM_OBJ_ROOT=$(cwd)/out/llvm/obj
+LLVM_SRC_ROOT=$(cwd)/out/llvm/src/
+LLVM_OBJ_ROOT=$(cwd)/out/llvm/obj/
 PROJ_SRC_ROOT=$(CWD)
-PROJ_OBJ_ROOT=$(CWD)/out/obj
+PROJ_OBJ_ROOT=$(CWD)/out/obj/
 PROJ_INSTALL_ROOT=$(CWD)/out
 LEVEL=
 
 
-# .DEFAULT_GOAL := check-out-dir zig zig-init-newdir zig-init-samedir build-c build-cpp -build-rust build-nim
-default: check-out-dir zig zig-init-newdir zig-init-samedir build-c build-cpp -build-rust build-nim
+# .DEFAULT_GOAL := set-out-dir zig zig-init-newdir zig-init-samedir build-c build-cpp -build-rust build-nim
+default: set-out-dir zig zig-init-newdir zig-init-samedir build-c build-cpp -build-rust build-nim
 
-# default: check-out-dir zig zig-init-newdir zig-init-samedir build-c build-cpp -build-rust build-nim
+# default: set-out-dir zig zig-init-newdir zig-init-samedir build-c build-cpp -build-rust build-nim
 
 SHELL := zsh
 .ONESHELL :
@@ -99,11 +99,11 @@ build-rust:
 target:
 	<tab> fzf
 
-check-out-dir:
-	mkdir -p $(cwd)/pkg
-	mkdir -p $(cwd)/lib
-	mkdir -p $(cwd)/etc
-	mkdir -p $(CWD)/obj
+set-out-dir:
+	mkdir -p $(cwd)/out/pkg
+	mkdir -p $(cwd)/out/lib
+	mkdir -p $(cwd)/out/etc
+	mkdir -p $(CWD)/out/obj
 	mkdir -p $(cwd)/llvm/src
 	mkdir -p $(cwd)/llvm/obj
 

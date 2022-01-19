@@ -204,9 +204,7 @@ pub const Cmp = enum(u8) {
         } else return null;
     }
 };
-pub const LinkInfix = enum(u8) {
-    
-};
+pub const LinkInfix = enum(u8) {};
 
 // NOTE: Primarily for shorthand letter-prefixes to initialize
 //       builtin data types and syntax. Specified as prefix
@@ -426,6 +424,8 @@ pub const Reference = enum(u8) {
     barrow, //          <-
     fdbl_arrow, //      ->>
     bdbl_arrow, //      <<-
+
+    both_arrow, //       <->
 
     pub fn fromStr(s: []const u8) @This() {
         if (s[0] == '=') switch (s[1]) {

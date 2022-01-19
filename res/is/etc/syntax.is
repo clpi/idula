@@ -1,0 +1,17 @@
+-- is basic syntax
+;
+
+is: main_module;
+uses: [ pre:[fs, io], main:util ]; --
+
+; = data.struct can be inferred once it implements its abstract has method
+; def statement can also
+def *"Cli": =[ data.struct, data.map]
+
+
+-- if a procedure doesnt have any args, can omit []
+!parse_args = ![ ] -> [  ]
+
+
+
+

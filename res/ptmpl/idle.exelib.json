@@ -1,0 +1,19 @@
+{
+    "title": "project",
+    "author": "You",
+    "date": "",
+    "version": "0.1.0",
+    "about": "An Idleset exelib project",
+    "edition": "2022",
+    "lib": {
+	"name": "project_lib",
+	"type": "exe",
+	"path": "src/lib.is",
+	"deps": { }
+    },
+    "build": {
+	"name": "project_build",
+	"path": "src/builder.is",
+	"deps": { }
+    }
+}

@@ -4,6 +4,11 @@ const Allocator = std.mem.Allocator;
 const Association = @import("./type/rel/assoc.zig").Association;
 const Link = @import("./type/rel/link.zig").Link;
 const Constraint = @import("./type/modifiers/constraints.zig").Constraint;
+
+const Constr = @import("./trait/constraint.zig");
+const Ability = @import("./trait/ability.zig");
+const Rule = @import("./trait/rule.zig");
+
 const Capability = @import("./type/modifiers/capability.zig").Capability;
 const Quality = @import("./type/modifiers/quality.zig").Quality;
 const @"type" = @import("./type.zig");

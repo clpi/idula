@@ -1,25 +1,20 @@
 //! Keywords corresponding to typee names
 const str = []const u8;
+pub const scope = @import("./lang/env/scope.zig");
+pub const Scope = scope.Scope;
 const env = @import("../../type/env.zig");
 const std = @import("std");
 const eql = @import("../../util.zig").eql;
 const Cursor = @import("../../token.zig").Cursor;
+const ScopeType = scope.ScopeType;
 pub usingnamespace @import("../../token.zig");
 const Allocator = std.mem.Allocator;
 
-pub const TypeKindEnum = union(enum(u8)) {
-    primitive_nn,
-    prim_num,
-    builtin_types,
-    core_types,
-    abstract_types,
-    function,
-    collection,
-    data_type,
-    meta_type,
-    edge_type,
-};
-pub const TypeKind = union(TypeKindEnum) {
+pub const KeywordType = @This();
+
+pub const KwType = Type;
+
+pub const Type = union(enum) {
     primitive_nn: PrimitiveType,
     prim_num: NumType,
     builtin_types: BuiltinType,
@@ -43,7 +38,7 @@ pub const TypeInfo = struct {
 pub const EnvInfo = struct {
     current: u8,
     scope: Scope,
-    rules: Rules,
+    // rules: Rules,
     context: ScopeType,
     pos: Cursor,
     offset: usize,
@@ -79,13 +74,14 @@ pub const BuiltinType = enum(u8) {
     set,
     maybe, // Enum defined in base type.zig file
     result, // Enum defined in base type.zig file
+    either, // Enum now defined in type.zig -- either value "left" or "right" (which will for now be kws)
     unknown,
     undef,
 
     const Self = @This();
 
     pub fn fromStr(s: str) ?Self {
-        for (std.enums.valuesFromFields(std.meta.declarations(TypeKind))) |field| {
+        for (std.enums.valuesFromFields(std.meta.declarations(KwType))) |field| {
             if (std.mem.eql(u8, s, field)) {
                 return field;
             }
@@ -93,7 +89,7 @@ pub const BuiltinType = enum(u8) {
         return null;
     }
 };
-pub const NumType = enum(i8) {
+pub const NumType = enum(u8) {
     // NOTE: dynamically typed numbers
     num,
     complex,
@@ -104,38 +100,38 @@ pub const NumType = enum(i8) {
     uint, // u64
     float, // f64
 
-    usize = 144,
-    isize = -144,
+    usize,
+    isize,
 
-    u64 = 64,
-    i64 = -64,
-    f64 = 164,
+    u64,
+    i64,
+    f64,
 
-    u32 = 32,
-    i32 = -32,
-    f32 = 132,
+    u32,
+    i32,
+    f32,
 
-    u128 = 128,
-    i128 = -128,
-    f128 = 228,
+    u128,
+    i128,
+    f128,
 
-    u16 = 16,
-    i16 = 16,
-    f16 = 116,
-    u8 = 8,
-    i8 = -8,
-    u6 = 6,
-    i6 = -6,
-    u5 = 5,
-    i5 = -5,
-    u4 = 4,
-    i4 = -4,
-    u3 = 3,
-    i3 = -3,
-    u2 = 2,
-    i2 = -2,
-    u1 = 1,
-    i1 = -1,
+    u16,
+    i16,
+    f16,
+    u8,
+    i8,
+    u6,
+    i6,
+    u5,
+    i5,
+    u4,
+    i4,
+    u3,
+    i3,
+    u2,
+    i2,
+    u1,
+    i1,
 };
 
 /// Represents common data structures included in std
@@ -148,11 +144,13 @@ pub const CollectionType = enum(u8) {
     bptree,
     graph,
 
-    pub fn init(a: Allocator) @This() {
+    pub fn init() @This() {
         return CollectionType.map;
     }
     pub fn fromStr(s: str) @This() {
-        return CollectionType.map;
+        return switch (s) {
+            else => CollectionType.map,
+        };
     }
 };
 

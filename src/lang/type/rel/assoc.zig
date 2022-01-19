@@ -1,7 +1,12 @@
 const std = @import("std");
 const str = []const u8;
 const Allocator = std.mem.Allocator;
-const ty = @import("./type.zig");
+const trait = @import("../trait.zig");
+const Implementation = @import("../trait.zig").Implementation;
+const ty = @import("../type.zig");
+const Field = ty.Field;
+const meta = @import("../meta.zig");
+const Tag = meta.Tag;
 
 // NOTE: associations, unlike relations, are necessarily undrirected
 //       but act in the flexible and free-form hypergraph generalization
@@ -22,7 +27,7 @@ pub const AssociationType = struct {
     qualities: std.BufSet,
     associations: std.BufMap,
     implementations: std.StringArrayHashMap(Implementation),
-    tags: std.StringArrayHashMap(Tag).init(a),
+    tags: std.StringArrayHashMap(Tag),
     fields: std.StringArrayHashMap(Field),
     const Self = @This();
 

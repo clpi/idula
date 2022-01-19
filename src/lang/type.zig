@@ -8,6 +8,7 @@ const assoc = @import("./type/rel/assoc.zig");
 pub const Association = assoc.Association;
 pub const AssociationType = assoc.AssociationType;
 const str = []const u8;
+
 pub const ty = @import("./token/keyword/type.zig");
 pub const TypeKind = ty.TypeKind;
 pub const FnType = ty.FnType;
@@ -17,6 +18,7 @@ pub const EdgeType = ty.EdgeType;
 pub const CoreDataType = ty.CoreDataType;
 pub const DataType = ty.DataType;
 pub const NumType = ty.NumType;
+
 pub const Allocator = std.mem.Allocator;
 pub const traits = @import("./trait.zig");
 pub const Implementation = @import("./trait.zig").Implementation;
@@ -169,15 +171,20 @@ pub const TupleType = union(enum) {
     tuple_two: .{ type, type },
     tuple_three: .{ type, type, type },
     tuple_four: .{ type, type, type, type },
-}
+};
 
+pub const IntVal = struct { signed: bool, bytes: usize, val: i128 };
+pub const FltVal = struct { signed: bool, bytes: usize, val: f128 };
 /// NOTE: Theoretically, this is the enum that should be 
 /// represented by the literal type "num". They're all 
 /// numbers, we'll deal with the complexity and nuance.
 pub const NumTypeVals = union(NumType) {
     num: anytype = 0,
-    complex = 0,
-    decimal = 0.0,
+    complex: i32 = 0,
+    decimal: f32 = 0.0,
+
+    int: ?IntVal = null,
+    float: ?FloatVal = null,
 
     //NOTE: aliases of i64, u64, f64 respectively
     int: i64 = 0, // i64

@@ -1,3 +1,4 @@
+**wiki
 **zig-out
 **zig-cache
 **.env
@@ -5,5 +6,25 @@
 **target
 **npm-modules
 **.prod.env
+**keys
+**inventory
+**secrets
+**env
+
+**dev.env.toml**
+**prod.env.toml**
+**secrets.toml
+
+**dev.env.yaml**
+**dev.env.yml**
+**secrets.yaml**
+**secrets.yml**
+**prod.env.yaml**
+**prod.env.yml**
+**out/deps/*
+**out/bin/*
+**out/obj/*
+
 
 wapm_packages
+

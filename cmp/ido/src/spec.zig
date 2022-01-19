@@ -1,0 +1,1 @@
+pub const Spec = @This();

@@ -11,9 +11,9 @@ const str = []const u8;
 const @"type" = @import("../type.zig");
 const Field = @"type".Field;
 const Method = @"type".Method;
-pub const Constraint = @import("./type/modifiers/constraints.zig").Constraint;
-pub const Capability = @import("./type/modifiers/capability.zig").Capability;
-pub const Quality = @import("./type/modifiers/quality.zig").Quality;
+pub const Constraint = @import("../modifiers/constraints.zig").Constraint;
+pub const Capability = @import("../modifiers/capability.zig").Capability;
+pub const Quality = @import("../modifiers/quality.zig").Quality;
 
 pub const Link = struct {
     name: []const u8,

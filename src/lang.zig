@@ -43,3 +43,10 @@ pub const IdulaFrontend = struct {
     allocator: std.mem.Allocator,
     arena: std.heap.ArenaAllocator.init(Self.allocator),
 };
+
+// NOTE: Meta about the three different languages and formats
+pub const kw_map = std.ComptimeStringMap(Tag, .{
+    .{ "is", .keyword_addrspace },
+    .{ "id", .keyword_align },
+    .{ "il", .keyword_allowzero },
+});

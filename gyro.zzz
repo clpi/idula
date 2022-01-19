@@ -9,3 +9,9 @@ pkgs:
     files:
       README.md
       LICENSE
+# deps:
+#   zig-clap:
+#     url: "https://path/to/my/library.tar.gz"
+#     root: libname/rootfile.zig
+#
+#

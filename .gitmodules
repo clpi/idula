@@ -1,0 +1,3 @@
+[submodule "res/vim"]
+    path = res/vim
+    url = git@github.com:clpi/idlex.vim

@@ -8,25 +8,25 @@ default-run = "idli"
 repository = "https://github.com/clpi/idula.git"
 readme = "README.md"
 license = "LICENSE.md"
-build = "crates/build.rs"
+build = "src-rs/build.rs"
 
 [lib]
 name = "idli_lib"
-path = "crates/src/lib.rs"
+path = "src-rs/lib.rs"
 doctest = false
 test = false
 
 
 [[bin]]
 name = "idli"
-path = "crates/src/bin/main.rs"
+path = "src-rs/bin/main.rs"
 doctest = false
 test = false
 bench = false
 
 [[bin]]
 name = "idl-sh"
-path = "crates/src/bin/sh.rs"
+path = "src-rs/bin/sh.rs"
 doctest = false
 test = false
 bench = false
@@ -34,6 +34,14 @@ bench = false
 [dependencies]
 itertools = "0.10.3"
 nom = "7.1.0"
-serde = { version = "*", features = ["derive"]}
+serde = { version = "1.0.133", features = ["derive"]}
 strum = { version = "0.23.0", features = ["derive"] }
 strum_macros = "0.23.1"
+
+[workspace]
+default-members = [
+    "./crates/inet"
+]
+members = [
+    "./crates/*"
+]

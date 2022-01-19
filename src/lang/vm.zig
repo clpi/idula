@@ -4,6 +4,7 @@ const Allocator = std.mem.Allocator;
 pub const Vm = struct {
     allocator: Allocator,
     symbols: std.StringArrayHashMap(Symbol),
+    strings: *std.BufMap,
 
     pub fn init(a: Allocator) Vm {
         return Vm{ .allocator = a, .symbols = std.StringArrayHashMap(Symbol).init() };

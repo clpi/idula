@@ -1,0 +1,40 @@
+-- idlang v0
+-- my most desperate attempt making a familiar and understandable syntax,
+-- when all I do when coding is the very exact opposite. trying to stay either on the 
+-- "classic functional" or just plain c style
+
+-- The lua/mysql style comments, however, will be staying, along with the optional semicolons
+
+-- 0. Type instantiation
+
+
+let invar msg = "hi there, world!"
+let len:num = 3
+let decimal = 3.1415
+let optional msg:str:? = "hi there world":?
+let pub usage:str = "USAGE - subcommands: ..."
+
+-- with visibility specified, and with conditionals
+-- =? -> query literal operator
+--  allows pattern matching, but if then else veribiage is still used by default --
+-- flexibility is allowed, for ex:
+
+-- Formatting way 0 (completely explicit and unambiguous to a C++ programmer)
+let local cnd :str? = if [scope.data, scope.trait] then {
+    std.sys:exit[+1]
+} 
+"Not in data-kind scope or trait scope!"
+
+-- Formatting way 2
+let local cnd :str? = if[scope.data, scope.trait]none else "Not in data-kind scope or trait scope!"
+
+-- Formatting way 2
+let local cnd :str? = if[scope.data, scope.trait] -> none else "Not in data-kind scope or trait scope!"
+
+
+
+
+
+-- 1. struct type def 
+
+let person =

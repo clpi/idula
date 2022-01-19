@@ -1,0 +1,25 @@
+{
+    "title": "project",
+    "author": "You",
+    "date": "",
+    "version": "0.1.0",
+    "about": "A hybrid Idleset project",
+    "edition": "2022",
+    "lib": {
+	"name": "project_lib",
+	"path": "src/lib.is",
+	"deps": { }
+    },
+    "bin": [
+	{
+	    "name": "project_bin",
+	    "path": "src/lib.is",
+	    "deps": { }
+	}
+    ],
+    "build": {
+	"name": "project_build",
+	"path": "src/builder.is",
+	"deps": { }
+    }
+}

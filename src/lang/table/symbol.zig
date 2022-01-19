@@ -18,31 +18,35 @@ const Capability = @import("../type/modifiers/capability.zig").Capability;
 const Constraint = traits.Constraint;
 const Association = traits.Association;
 
-pub const Symbol = struct { 
+pub const Symbol = struct {
     const Relation = @import("../type.zig").Relation;
-    sid: str = id:{ var b: [36]u8 = undefined; std.rand.DefaultCsprng.fill(&b); break:id b; },
-    name: ?[]const u8, 
-    scope: []const u8, 
-    public: bool = false, 
-    variable: bool = false, 
-    optional: bool = false, 
-    type: Type, 
+    sid: str = id: {
+        var b: [36]u8 = undefined;
+        std.rand.DefaultCsprng.fill(&b);
+        break :id b;
+    },
+    name: ?[]const u8,
+    scope: []const u8,
+    public: bool = false,
+    variable: bool = false,
+    optional: bool = false,
+    type: Type,
     rel: Relation,
 
     fields: std.StringArrayHashMap(Field),
     methods: std.StringArrayHashMap(Method),
-    implementations: std.StringArrayHashMap(Implementation),
+    // implementations: std.StringArrayHashMap(Implementation),
     traits: std.StringArrayHashMap(Trait),
     qualities: std.StringArrayHashMap(Quality),
     constraints: std.StringArrayHashMap(Quality),
-    capabilities: std.StringArrayHashMap(Capabilities),
+    // capabilities: std.StringArrayHashMap(Capabilities),
 
     tags: std.ArrayList(Tag),
 
     const Self = @This();
 
-    pub fn init(name: ?str, scope: Scope, tt: Type, rel: Relation) Symbol {
-        return Self {
+    pub fn init(a: Allocator, name: ?str, scope: Scope, tt: Type, rel: Relation) Symbol {
+        return Self{
             .name = name,
             .scope = scope,
             .optional = false,
@@ -53,13 +57,12 @@ pub const Symbol = struct {
             .fields = std.StringArrayHashMap(Field).init(a),
             .methods = std.StringArrayHashMap(Method).init(a),
             .traits = std.StringArrayHashMap(Trait).init(a),
-            .implementations = std.StringArrayHashMap(Implementation).init(a),
+            // .implementations = std.StringArrayHashMap(Implementation).init(a),
             .fields = std.StringArrayHashMap(Field).init(a),
             .qualities = std.StringArrayHashMap(Quality).init(a),
             .constraints = std.StringArrayHashMap(Constraint).init(a),
-            .capabilities = std.StringArrayHashMap(Capabilities).init(a),
+            // .capabilities = std.StringArrayHashMap(Capabilities).init(a),
             .tags = std.ArrayList(Tag).init(a),
-
         };
     }
 };
@@ -74,8 +77,6 @@ pub const SymbolRel = union(enum(u8)) {
 
 pub const SymbolDebug = struct {
     ident: ?str,
-    pos: Cursor,
+    // pos: Cursor,
     type: Type,
-
 };
-
